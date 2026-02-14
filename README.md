@@ -18,7 +18,7 @@ I am a 16-year-old student developer passionate about building things with code.
 I believe that the future of software engineering lies in the synergy between human creativity and Artificial Intelligence. To stay at the forefront of this shift, I integrate AI tools into my workflow to build more efficiently and learn faster.
 
 ### How I use AI:
-* **Rapid Prototyping:** Accelerating the transition from idea to functional code in **React** and **GDScript**.
+* **Rapid Prototyping:** Accelerating the transition from idea to functional code with the help of **AI**
 * **Optimization:** Leveraging LLMs to refactor **C++** logic and explore better design patterns.
 * **Learning:** Using AI as a technical partner to deep-dive into new frameworks and documentation.
 
