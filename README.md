@@ -11,8 +11,12 @@ I am a 16-year-old student developer passionate about building things with code.
 * **Software Development:** Diving deep into **C++**.
 * **Game Dev:** Exploring **Godot** and **GDScript**.
 * **AI:** using ai to learn and correct my code
-* using ai create me code and enhancing it since ai play a major role in coding on the future 
-
+*AI-Assisted Development
+I believe that the future of software involves a partnership between human creativity and AI. I use AI tools (like Gemini and GitHub Copilot) to help with:
+Rapid Prototyping: Turning ideas into functional code quickly.
+Learning & Debugging: Understanding complex concepts and finding bugs faster.
+Efficiency: Handling boilerplate code so I can focus on high-level architecture.
+All code is reviewed, tested, and refined by me to ensure quality and security.
 
 ### 📈 What I'm working on
 - 🍎 Improving my **Calorie Tracker** web app.
