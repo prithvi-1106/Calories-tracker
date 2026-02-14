@@ -11,7 +11,7 @@ I am a 16-year-old student developer passionate about building things with code.
 * **Software Development:** Diving deep into **C++**.
 * **Game Dev:** Exploring **Godot** and **GDScript**.
 * **AI:** using ai to learn and correct my code
-* using ai create me code and enhanceing it since ai play a major role in coding on the future 
+* using ai create me code and enhancing it since ai play a major role in coding on the future 
 
 
 ### 📈 What I'm working on
