@@ -11,12 +11,21 @@ I am a 16-year-old student developer passionate about building things with code.
 * **Software Development:** Diving deep into **C++**.
 * **Game Dev:** Exploring **Godot** and **GDScript**.
 * **AI:** using ai to learn and correct my code
-* **AI-Assisted Development
-I believe that the future of software involves a partnership between human creativity and AI. I use AI tools to help with:
-Rapid Prototyping: Turning ideas into functional code quickly.
-Learning & Debugging: Understanding complex concepts and finding bugs faster.
-Efficiency: Handling boilerplate code so I can focus on high-level architecture.
-All code is reviewed, tested, and refined by me to ensure quality and security.
+---
+
+## 🤖 AI-Assisted Development
+
+I believe that the future of software engineering lies in the synergy between human creativity and Artificial Intelligence. To stay at the forefront of this shift, I integrate AI tools into my workflow to build more efficiently and learn faster.
+
+### How I use AI:
+* **Rapid Prototyping:** Accelerating the transition from idea to functional code in **React** and **GDScript**.
+* **Optimization:** Leveraging LLMs to refactor **C++** logic and explore better design patterns.
+* **Learning:** Using AI as a technical partner to deep-dive into new frameworks and documentation.
+
+> **Note on Transparency:** While AI assists in generating boilerplate and exploring solutions, every line of code is manually reviewed, refactored, and tested by me to ensure high quality and security.
+
+---
+
 
 ### 📈 What I'm working on
 - 🍎 Improving my **Calorie Tracker** web app.
