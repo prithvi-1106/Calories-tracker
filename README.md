@@ -10,8 +10,8 @@ I am a 16-year-old student developer passionate about building things with code.
 * **Web Development:** diving deep into **HTML5** (and starting with CSS/JS).
 * **Software Development:** currently mastering **C++**.
 * **Game Dev:** Exploring **Godot** and **GDScript**.
-* **AI assisted work flow:** using ai to learn and correct my code
----* **Future of Tech:** `Using AI as a technical partner for deep-diving into new frameworks and debugging`
+* **AI assisted work flow:** `Using AI as a technical partner for deep-diving into new frameworks and debugging`
+---
 
 
 ## 🤖 AI-Assisted Development
