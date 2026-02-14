@@ -7,8 +7,8 @@ I am a 16-year-old student developer passionate about building things with code.
 ---
 
 ### 🛠 My Current Toolkit
-* **Web Development:** Currently mastering **HTML5** (and starting with CSS/JS).
-* **Software Development:** Diving deep into **C++**.
+* **Web Development:** diving deep into **HTML5** (and starting with CSS/JS).
+* **Software Development:** currently mastering **C++**.
 * **Game Dev:** Exploring **Godot** and **GDScript**.
 * **AI:** using ai to learn and correct my code
 ---
