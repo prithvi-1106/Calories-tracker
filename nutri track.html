@@ -1,0 +1,197 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriTrack Pro | Custom Logging</title>
+    <style>
+        :root { --primary: #2ecc71; --secondary: #3498db; --dark: #2c3e50; --light: #f8f9fa; --danger: #e74c3c; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #eef2f3; margin: 0; padding: 20px; color: var(--dark); }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        
+        h1, h3 { text-align: center; color: var(--dark); }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .stat-card { background: var(--light); padding: 20px; border-radius: 10px; text-align: center; border-bottom: 4px solid var(--primary); }
+        .stat-card h2 { margin: 0; font-size: 2.2rem; color: var(--primary); }
+
+        .section { background: #fff; border: 1px solid #eee; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        .flex-row { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+        .flex-item { flex: 1; min-width: 150px; }
+
+        input, select { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        
+        button { padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+        .btn-add { background: var(--primary); color: white; width: 100%; margin-top: 15px; }
+        .btn-custom { background: var(--secondary); color: white; }
+        .btn-clear { background: var(--danger); color: white; margin-top: 20px; width: 100%; }
+        button:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 25px; }
+        th, td { text-align: left; padding: 15px; border-bottom: 1px solid #eee; }
+        th { background: var(--light); color: #666; text-transform: uppercase; font-size: 12px; }
+        .delete-btn { color: var(--danger); cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>NutriTrack</h1>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h2 id="total-calories">0</h2>
+            <p>Total Calories</p>
+        </div>
+        <div class="stat-card">
+            <h2 id="total-protein">0</h2>
+            <p>Total Protein (g)</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Log a Meal</h3>
+        <div class="flex-row">
+            <div class="flex-item" style="flex: 2;">
+                <label>Select Food</label>
+                <select id="food-select"></select>
+            </div>
+            <div class="flex-item">
+                <label>Capacity (Qty/Servings)</label>
+                <input type="number" id="food-qty" value="1" min="0.1" step="0.1">
+            </div>
+        </div>
+        <button class="btn-add" id="add-log-btn">Add to Log</button>
+    </div>
+
+    <div class="section" style="background: #fdfdfd;">
+        <h3>Add New Food to Library</h3>
+        <div class="flex-row">
+            <div class="flex-item"><input type="text" id="cust-name" placeholder="Food Name"></div>
+            <div class="flex-item"><input type="number" id="cust-cal" placeholder="Calories"></div>
+            <div class="flex-item"><input type="number" id="cust-pro" placeholder="Protein"></div>
+            <button class="btn-custom" id="add-custom-btn">Save to Library</button>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Qty</th>
+                <th>Calories</th>
+                <th>Protein</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="log-table-body"></tbody>
+    </table>
+
+    <button class="btn-clear" id="clear-btn">Clear All Daily Data</button>
+</div>
+
+<script>
+    // Initial Library
+    let foodLibrary = JSON.parse(localStorage.getItem('nt_library')) || [
+        { name: "Chicken Breast", cal: 165, pro: 31 },
+        { name: "White Rice (1 cup)", cal: 205, pro: 4 },
+        { name: "Egg (Large)", cal: 70, pro: 6 },
+        { name: "Peanut Butter (1tbsp)", cal: 94, pro: 4 }
+    ];
+
+    let dailyLog = JSON.parse(localStorage.getItem('nt_log')) || [];
+
+    const foodSelect = document.getElementById('food-select');
+    const logTableBody = document.getElementById('log-table-body');
+
+    function updateLibraryUI() {
+        foodSelect.innerHTML = '<option value="">-- Choose Food --</option>';
+        foodLibrary.sort((a,b) => a.name.localeCompare(b.name)).forEach(f => {
+            const opt = document.createElement('option');
+            opt.value = f.name;
+            opt.textContent = `${f.name} (${f.cal} cal / ${f.pro}g pro)`;
+            foodSelect.appendChild(opt);
+        });
+        localStorage.setItem('nt_library', JSON.stringify(foodLibrary));
+    }
+
+    function renderLog() {
+        logTableBody.innerHTML = '';
+        let tCal = 0, tPro = 0;
+
+        dailyLog.forEach((item, index) => {
+            const itemCal = item.baseCal * item.qty;
+            const itemPro = item.basePro * item.qty;
+            tCal += itemCal;
+            tPro += itemPro;
+
+            logTableBody.innerHTML += `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.qty}</td>
+                    <td>${Math.round(itemCal)}</td>
+                    <td>${itemPro.toFixed(1)}g</td>
+                    <td><span class="delete-btn" onclick="removeLogItem(${index})">✕</span></td>
+                </tr>
+            `;
+        });
+
+        document.getElementById('total-calories').textContent = Math.round(tCal);
+        document.getElementById('total-protein').textContent = tPro.toFixed(1);
+        localStorage.setItem('nt_log', JSON.stringify(dailyLog));
+    }
+
+    // Add Log Event
+    document.getElementById('add-log-btn').addEventListener('click', () => {
+        const name = foodSelect.value;
+        const qty = parseFloat(document.getElementById('food-qty').value);
+        if(!name || qty <= 0) return alert("Select food and enter quantity!");
+
+        const food = foodLibrary.find(f => f.name === name);
+        dailyLog.push({
+            name: food.name,
+            qty: qty,
+            baseCal: food.cal,
+            basePro: food.pro
+        });
+        renderLog();
+    });
+
+    // Add Custom Food Event
+    document.getElementById('add-custom-btn').addEventListener('click', () => {
+        const name = document.getElementById('cust-name').value;
+        const cal = parseFloat(document.getElementById('cust-cal').value);
+        const pro = parseFloat(document.getElementById('cust-pro').value);
+
+        if(!name || isNaN(cal)) return alert("Fill in food name and calories!");
+
+        foodLibrary.push({ name, cal, pro });
+        updateLibraryUI();
+        
+        // Clear inputs
+        document.getElementById('cust-name').value = '';
+        document.getElementById('cust-cal').value = '';
+        document.getElementById('cust-pro').value = '';
+    });
+
+    window.removeLogItem = (i) => { dailyLog.splice(i, 1); renderLog(); };
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+        if(confirm("Clear log?")) { dailyLog = []; renderLog(); }
+    });
+
+    // Initial Load
+    updateLibraryUI();
+    renderLog();
+</script>
+
+</body>
+</html>
+
+
+
+
+
